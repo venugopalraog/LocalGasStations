@@ -2,9 +2,8 @@ package sample.com.localgasstations.network;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import com.google.gson.Gson;
-
+import sample.com.localgasstations.data.RequestListener;
 import sample.com.localgasstations.data.SearchResultData;
 
 /**
@@ -13,16 +12,18 @@ import sample.com.localgasstations.data.SearchResultData;
 public class SearchRequest extends AsyncTask<Void, Void, SearchResultData> {
 
 	private Context mContext;
+	private RequestListener mRequestListener;
 	private String mCityName;
 
 	public SearchRequest (Context context, String cityName) {
 		mContext = context;
+		mRequestListener = (RequestListener) mContext;
 		mCityName = cityName;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		super.onPreExecute();
+
 	}
 
 	@Override
@@ -40,7 +41,6 @@ public class SearchRequest extends AsyncTask<Void, Void, SearchResultData> {
 
 	@Override
 	protected void onPostExecute(SearchResultData result) {
-		super.onPostExecute(result);
-
+		mRequestListener.onSuccess(result);
 	}
 }

@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import sample.com.localgasstations.R;
+import sample.com.localgasstations.adapters.SearchResultAdapter;
 import sample.com.localgasstations.data.RequestListener;
 import sample.com.localgasstations.data.SearchResultData;
 import sample.com.localgasstations.network.SearchRequest;
@@ -16,31 +19,39 @@ import sample.com.localgasstations.network.SearchRequest;
 public class SearchResultActivity extends Activity implements RequestListener{
 
 	private RecyclerView mRecyclerView;
-	private RecyclerView.Adapter mAdapter;
+	private SearchResultAdapter mSearchResultAdapter;
 	private RecyclerView.LayoutManager mLayoutManager;
 	private SearchResultData mResultData = null;
+
+	private ProgressBar mProgressBar = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.search_result);
 
+		mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+		mProgressBar.setVisibility(View.VISIBLE);
+
 		mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-		mRecyclerView.setHasFixedSize(true);
+		mRecyclerView.setHasFixedSize(false);
 		mLayoutManager = new LinearLayoutManager(this);
 		mRecyclerView.setLayoutManager(mLayoutManager);
 
+		//Create Adapter Instance and pass the Result data to it
+        mSearchResultAdapter = new SearchResultAdapter(SearchResultActivity.this, mResultData);
+		mRecyclerView.setAdapter(mSearchResultAdapter);
+		RecyclerView.ItemDecoration itemDecoration =
+				new DividerItemDecoration(SearchResultActivity.this, LinearLayoutManager.HORIZONTAL);
+		mRecyclerView.addItemDecoration(itemDecoration);
+
+        //Start AsyncTask to fetch the Gas Station from Yelp Server
 		new SearchRequest(SearchResultActivity.this, "Tustin, CA").execute();
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-/*		mAdapter = new SearchResultAdapter(this, mResultData);
-		mRecyclerView.setAdapter(mAdapter);
-		RecyclerView.ItemDecoration itemDecoration =
-				new DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL);
-		mRecyclerView.addItemDecoration(itemDecoration);*/
 	}
 
 	@Override
@@ -64,12 +75,10 @@ public class SearchResultActivity extends Activity implements RequestListener{
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				mAdapter = new SearchResultAdapter(SearchResultActivity.this, mResultData);
-				mRecyclerView.setAdapter(mAdapter);
-				RecyclerView.ItemDecoration itemDecoration =
-						new DividerItemDecoration(SearchResultActivity.this, LinearLayoutManager.HORIZONTAL);
-				mRecyclerView.addItemDecoration(itemDecoration);
-
+				//Hide the ProgressBar
+				mProgressBar.setVisibility(View.GONE);
+                mSearchResultAdapter.setSearchResultData(mResultData);
+                mSearchResultAdapter.notifyDataSetChanged();
 			}
 		});
 	}

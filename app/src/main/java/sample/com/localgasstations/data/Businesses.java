@@ -10,6 +10,9 @@ public class Businesses {
 	@SerializedName("rating")
 	public float rating;
 
+    @SerializedName("rating_img_url")
+    public String ratingImageUrl;
+
 	@SerializedName("name")
 	public String name;
 

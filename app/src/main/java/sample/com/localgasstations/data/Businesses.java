@@ -24,4 +24,8 @@ public class Businesses {
 
 	@SerializedName("snippet_text")
 	public String snippet_text;
+
+	@SerializedName("location")
+	public Location location;
+
 }

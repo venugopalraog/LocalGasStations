@@ -79,7 +79,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 .load(mSearchResultData.businesses.get(position).imageUrl)
                 .into(holder.mBusinessPhoto);
 
-        holder.mBusinessAddress.setText(mSearchResultData.businesses.get(position).snippet_text);
+        holder.mBusinessAddress.setText(mSearchResultData.businesses.get(position).location.displayAddress.get(0) + mSearchResultData.businesses.get(position).location.displayAddress.get(1));
 
         holder.mBusinessName.setText(mSearchResultData.businesses.get(position).name);
 

@@ -2,6 +2,8 @@ package sample.com.localgasstations.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -37,13 +39,14 @@ public class SearchResultActivity extends Activity implements RequestListener{
 		mRecyclerView.setHasFixedSize(false);
 		mLayoutManager = new LinearLayoutManager(this);
 		mRecyclerView.setLayoutManager(mLayoutManager);
+		RecyclerView.ItemDecoration itemDecoration =
+				new DividerItemDecoration(SearchResultActivity.this, LinearLayoutManager.HORIZONTAL);
+		mRecyclerView.addItemDecoration(itemDecoration);
 
 		//Create Adapter Instance and pass the Result data to it
         mSearchResultAdapter = new SearchResultAdapter(SearchResultActivity.this, mResultData);
 		mRecyclerView.setAdapter(mSearchResultAdapter);
-		RecyclerView.ItemDecoration itemDecoration =
-				new DividerItemDecoration(SearchResultActivity.this, LinearLayoutManager.HORIZONTAL);
-		mRecyclerView.addItemDecoration(itemDecoration);
+
 
         //Start AsyncTask to fetch the Gas Station from Yelp Server
 		new SearchRequest(SearchResultActivity.this, "Tustin, CA").execute();
@@ -72,14 +75,16 @@ public class SearchResultActivity extends Activity implements RequestListener{
 	@Override
 	public void onSuccess(SearchResultData data) {
 		mResultData = data;
-		runOnUiThread(new Runnable() {
+
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
 			@Override
 			public void run() {
-				//Hide the ProgressBar
 				mProgressBar.setVisibility(View.GONE);
-                mSearchResultAdapter.setSearchResultData(mResultData);
-                mSearchResultAdapter.notifyDataSetChanged();
+//				mRecyclerView.setVisibility(View.VISIBLE);
+				mSearchResultAdapter.setSearchResultData(mResultData);
+				mSearchResultAdapter.notifyDataSetChanged();
 			}
 		});
+
 	}
 }

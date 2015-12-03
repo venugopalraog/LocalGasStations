@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="16dp" >
+    android:padding="5dp" >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -11,32 +11,22 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp" >
+            android:padding="5dp" >
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:id="@+id/business_photo"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"  />
+                android:layout_marginRight="10dp"  />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/business_name"
                 android:layout_toRightOf="@+id/business_photo"
-                android:layout_alignParentTop="true"
-                android:textSize="30sp"  />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/business_score"
-                android:layout_alignParentLeft="true"
-                android:layout_toRightOf="@+id/business_name"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"  />
+                android:layout_alignParentTop="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,6 +34,13 @@
                 android:id="@+id/business_address"
                 android:layout_toRightOf="@+id/business_photo"
                 android:layout_below="@+id/business_name" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="25dp"
+                android:id="@+id/business_score"
+                android:layout_toRightOf="@+id/business_photo"
+                android:layout_below="@+id/business_address" />
 
         </RelativeLayout>
 

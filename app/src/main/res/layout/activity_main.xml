@@ -1,45 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent" >
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gasbg"/>
+    android:layout_width="match_parent"
+    android:background="@drawable/gas_bg">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/textView"
-            android:text="City Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:paddingLeft="50dp"
+        android:paddingTop="180dp">
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/station_name"
+            android:singleLine="true"
+            android:background="@null"
+            android:textColor="#f7f7f7"
+            android:textColorHint="#f7f7f7"
+            android:textSize="15dp"
+            android:hint="@string/hint_station"/>
+
+        <View
+            android:id="@+id/search_view_station_underline"
+            style="@style/SolidLineStyleView"
+            android:layout_alignBottom="@+id/station_name"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/search_view_station_underline"
             android:id="@+id/city_name"
             android:singleLine="true"
-            android:layout_below="@+id/textView"
-            android:layout_alignRight="@+id/button"
-            android:layout_alignEnd="@+id/button"
-            android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView"/>
+            android:background="@null"
+            android:textColor="#f7f7f7"
+            android:textColorHint="#f7f7f7"
+            android:layout_marginTop="20dp"
+            android:textSize="15dp"
+            android:hint="@string/hint_city"/>
+
+        <View
+            android:id="@+id/login_view_login_underline"
+            style="@style/SolidLineStyleView"
+            android:layout_alignBottom="@+id/city_name"/>
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:background="@drawable/yelp_logo_small"
             android:layout_below="@+id/city_name"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="50dp"
+            android:gravity="clip_vertical"
             android:onClick="onClick"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/yelp_powered_btn_light"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>

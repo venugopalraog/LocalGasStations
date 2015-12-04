@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SolidLineStyleView">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">#f7f7f7</item>
+    </style>
+</resources>

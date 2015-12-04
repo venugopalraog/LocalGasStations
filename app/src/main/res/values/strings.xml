@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">LocalGasStations</string>
 
-    <!--Yelp api access keys-->
+    <!-- Yelp api access keys -->
     <string name="consumer_key">qtCRzb6rjwqll01qWCwbZg</string>
     <string name="consumer_secret">9k_YTBlXIAjZBdHpklohrwEp-lg</string>
     <string name="token">pu84XKqGLCuEuJbtT9xM9MYy8y7hPqfj</string>
     <string name="token_secret">QsFDuish3lFY5v5Lc1fJQcVG9jo</string>
+
+    <!-- Main Screen Strings -->
+    <string name="hint_city">Current Location</string>
+    <string name="hint_station">Gas Station</string>
 
 </resources>

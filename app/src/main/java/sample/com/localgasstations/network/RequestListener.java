@@ -1,4 +1,6 @@
-package sample.com.localgasstations.data;
+package sample.com.localgasstations.network;
+
+import sample.com.localgasstations.data.SearchResultData;
 
 /**
  * Created by Vgubbala on 12/2/15.

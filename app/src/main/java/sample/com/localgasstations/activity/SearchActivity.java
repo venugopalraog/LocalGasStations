@@ -25,8 +25,11 @@ public class SearchActivity extends AppCompatActivity {
 			case R.id.button:
 				Log.d(TAG, "onClick -- button");
 				Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-				EditText editText = (EditText) findViewById(R.id.city_name);
-				intent.putExtra("CityName", editText.getText().toString());
+				EditText cityET = (EditText) findViewById(R.id.city_name);
+				EditText stationET = (EditText) findViewById(R.id.station_name);
+
+				intent.putExtra("CityName", cityET.getText().toString());
+				intent.putExtra("StationName", stationET.getText().toString());
 				startActivity(intent);
 				break;
 		}

@@ -1,6 +1,7 @@
 package sample.com.localgasstations.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,7 +12,7 @@ import android.widget.ProgressBar;
 
 import sample.com.localgasstations.R;
 import sample.com.localgasstations.adapters.SearchResultAdapter;
-import sample.com.localgasstations.data.RequestListener;
+import sample.com.localgasstations.network.RequestListener;
 import sample.com.localgasstations.data.SearchResultData;
 import sample.com.localgasstations.network.SearchRequest;
 
@@ -26,6 +27,11 @@ public class SearchResultActivity extends Activity implements RequestListener{
 	private SearchResultData mResultData = null;
 
 	private ProgressBar mProgressBar = null;
+
+	private String mCityName = null;
+	private String mStationName = null;
+
+	private Thread mRequestThread = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +53,14 @@ public class SearchResultActivity extends Activity implements RequestListener{
         mSearchResultAdapter = new SearchResultAdapter(SearchResultActivity.this, mResultData);
 		mRecyclerView.setAdapter(mSearchResultAdapter);
 
+		//Get the CityName and Station Name
+		Intent intent = getIntent();
+		mCityName = intent.getStringExtra("CityName");
+		mStationName = 	intent.getStringExtra("StationName");
 
-        //Start AsyncTask to fetch the Gas Station from Yelp Server
-		new SearchRequest(SearchResultActivity.this, "Tustin, CA").execute();
+		SearchResultRequest request = new SearchResultRequest();
+		mRequestThread = new Thread(request);
+		mRequestThread.start();
 	}
 
 	@Override
@@ -80,11 +91,19 @@ public class SearchResultActivity extends Activity implements RequestListener{
 			@Override
 			public void run() {
 				mProgressBar.setVisibility(View.GONE);
-//				mRecyclerView.setVisibility(View.VISIBLE);
 				mSearchResultAdapter.setSearchResultData(mResultData);
 				mSearchResultAdapter.notifyDataSetChanged();
 			}
 		});
 
+	}
+
+	public class SearchResultRequest implements  Runnable {
+
+		@Override
+		public void run() {
+			SearchRequest searchRequest= new SearchRequest(SearchResultActivity.this);
+			searchRequest.request(mStationName, mCityName);
+		}
 	}
 }

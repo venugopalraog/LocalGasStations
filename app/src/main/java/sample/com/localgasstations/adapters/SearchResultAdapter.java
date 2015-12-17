@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -46,6 +47,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         TextView mBusinessName;
         ImageView mBusinessPhoto;
         ImageView mBusinessRatings;
+
+		TextView mSnippetText;
+		TextView mDisplayPhone;
+
 		public DataObjectHolder(View itemView) {
 			super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
@@ -53,11 +58,21 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             mBusinessAddress = (TextView) itemView.findViewById(R.id.business_address);
             mBusinessPhoto = (ImageView) itemView.findViewById(R.id.business_photo);
             mBusinessRatings = (ImageView) itemView.findViewById(R.id.business_score);
+
+			mSnippetText = (TextView) itemView.findViewById(R.id.snippet_text);
+			mDisplayPhone = (TextView) itemView.findViewById(R.id.display_phone);
+
+			cv.setOnClickListener(this);
         }
 
 		@Override
 		public void onClick(View v) {
+			LinearLayout layout = (LinearLayout) v.findViewById(R.id.extended_item);
 
+			if (layout.getVisibility() == View.GONE)
+				layout.setVisibility(View.VISIBLE);
+			else
+				layout.setVisibility(View.GONE);
 		}
 	}
 
@@ -83,6 +98,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         holder.mBusinessName.setText(mSearchResultData.businesses.get(position).name);
 
+		holder.mSnippetText.setText(mSearchResultData.businesses.get(position).snippet_text);
+		holder.mDisplayPhone.setText(mSearchResultData.businesses.get(position).display_phone);
 	}
 
 	@Override

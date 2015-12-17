@@ -4,9 +4,13 @@
     android:padding="5dp" >
 
     <android.support.v7.widget.CardView
+        xmlns:cv="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cv" >
+        android:id="@+id/cv"
+        cv:cardUseCompatPadding="true"
+        cv:contentPadding="8dp"
+        cv:cardCornerRadius="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -14,8 +18,8 @@
             android:padding="5dp" >
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:id="@+id/business_photo"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
@@ -26,7 +30,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/business_name"
                 android:layout_toRightOf="@+id/business_photo"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,6 +47,26 @@
                 android:id="@+id/business_score"
                 android:layout_toRightOf="@+id/business_photo"
                 android:layout_below="@+id/business_address" />
+
+            <LinearLayout
+                android:id="@+id/extended_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/business_photo"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/display_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/snippet_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

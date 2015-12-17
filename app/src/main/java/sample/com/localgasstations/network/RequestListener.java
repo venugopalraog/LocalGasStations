@@ -11,5 +11,4 @@ public interface RequestListener {
 	void onResponseErrorReceived(String error_content, String error_id);
 	void onExceptionOccurred(Exception error);
 	void onSuccess(SearchResultData data);
-
 }

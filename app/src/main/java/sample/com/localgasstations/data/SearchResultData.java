@@ -14,4 +14,6 @@ public class SearchResultData {
 
 	@SerializedName("businesses")
 	public List<Businesses> businesses;
+
+
 }

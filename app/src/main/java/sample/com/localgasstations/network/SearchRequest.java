@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 
 import sample.com.localgasstations.data.SearchResultData;
+import sample.com.localgasstations.data.StationSearchFilter;
 
 /**
  * Created by Vgubbala on 12/2/15.
@@ -12,34 +13,28 @@ import sample.com.localgasstations.data.SearchResultData;
 public class SearchRequest {
 
 	private Context mContext;
-	private RequestListener mRequestListener;
 
 
 	public SearchRequest (Context context) {
 		mContext = context;
-		mRequestListener = (RequestListener) mContext;
 	}
 
-	public void request(String term, String location) {
+	public SearchResultData request(StationSearchFilter stationSearchFilter) {
 		Yelp yelp = Yelp.getYelp(mContext);
-		String response = yelp.searchGasStations(term, location);
+		String response = yelp.searchGasStations(stationSearchFilter);
+
+		/*Parse the Json String into Class Objects*/
+		Gson gson = new Gson();
+		return gson.fromJson(response, SearchResultData.class);
+
+	}
+
+	public void requestLL(StationSearchFilter stationSearchFilter) {
+		Yelp yelp = Yelp.getYelp(mContext);
+		String response = yelp.searchGasStations(stationSearchFilter);
 
 		/*Parse the Json String into Class Objects*/
 		Gson gson = new Gson();
 		SearchResultData result = gson.fromJson(response, SearchResultData.class);
-
-		mRequestListener.onSuccess(result);
-	}
-
-	public void requestLL(String term, String location) {
-		Yelp yelp = Yelp.getYelp(mContext);
-		String response = yelp.searchGasStations(term, location);
-
-		/*Parse the Json String into Class Objects*/
-		Gson gson = new Gson();
-		SearchResultData result = gson.fromJson(response, SearchResultData.class);
-
-		mRequestListener.onSuccess(result);
-
 	}
 }

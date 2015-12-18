@@ -16,6 +16,7 @@ import org.scribe.oauth.OAuthService;
 import java.net.HttpURLConnection;
 
 import sample.com.localgasstations.R;
+import sample.com.localgasstations.data.StationSearchFilter;
 
 
 public class Yelp {
@@ -82,10 +83,11 @@ public class Yelp {
 		return response.getBody();
 	}
 
-	public String searchGasStations(String term, String location) {
-		OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.yelp.com/v2/search/?category_filter=servicestations");
-		request.addQuerystringParameter("term", term);
-		request.addQuerystringParameter("location", location);
+	public String searchGasStations(StationSearchFilter stationSearchFilter) {
+		OAuthRequest request = new OAuthRequest(Verb.GET, "https://api.yelp.com/v2/search/?category_filter=servicestations&limit=20");
+		request.addQuerystringParameter("term", stationSearchFilter.getTerm());
+		request.addQuerystringParameter("location", stationSearchFilter.getLocation());
+		request.addQuerystringParameter("offset", stationSearchFilter.getStartingResult().toString());
 		this.service.signRequest(this.accessToken, request);
 		Response response = request.send();
 		if (response.getCode() != HttpURLConnection.HTTP_OK) {

@@ -41,7 +41,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 		mItemClickListener = listener;
 	}
 
-	public class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+	public static class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cv;
         TextView mBusinessAddress;
         TextView mBusinessName;
@@ -50,6 +50,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
 		TextView mSnippetText;
 		TextView mDisplayPhone;
+
+		public static LinearLayout mPreviousLayout = null;
 
 		public DataObjectHolder(View itemView) {
 			super(itemView);
@@ -69,10 +71,15 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 		public void onClick(View v) {
 			LinearLayout layout = (LinearLayout) v.findViewById(R.id.extended_item);
 
-			if (layout.getVisibility() == View.GONE)
+			if (layout.getVisibility() == View.GONE) {
+				if (mPreviousLayout != null)
+					mPreviousLayout.setVisibility(View.GONE);
 				layout.setVisibility(View.VISIBLE);
-			else
+			} else {
 				layout.setVisibility(View.GONE);
+			}
+
+			mPreviousLayout = layout;
 		}
 	}
 
@@ -97,9 +104,8 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.mBusinessAddress.setText(mSearchResultData.businesses.get(position).location.displayAddress.get(0) + mSearchResultData.businesses.get(position).location.displayAddress.get(1));
 
         holder.mBusinessName.setText(mSearchResultData.businesses.get(position).name);
-
-		holder.mSnippetText.setText(mSearchResultData.businesses.get(position).snippet_text);
-		holder.mDisplayPhone.setText(mSearchResultData.businesses.get(position).display_phone);
+		holder.mDisplayPhone.setText("Phone Number: " + mSearchResultData.businesses.get(position).display_phone);
+		holder.mSnippetText.setText("Description: " + mSearchResultData.businesses.get(position).snippet_text);
 	}
 
 	@Override

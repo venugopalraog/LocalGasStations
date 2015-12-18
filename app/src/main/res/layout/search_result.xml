@@ -22,4 +22,30 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/my_recycler_view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/previous_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Previous Station"
+            android:onClick="onClick" />
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Next Station"
+            android:onClick="onClick" />
+
+    </LinearLayout>
+
 </RelativeLayout>
